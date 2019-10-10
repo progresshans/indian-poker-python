@@ -19,11 +19,13 @@ class MainWindow(QMainWindow):
         super().__init__()
         wg = MainPageWidget()
         self.setCentralWidget(wg)
-        self.statusBar().showMessage('Ready')
+        self.statusBar().showMessage('원본 코드 :  https://github.com/progresshans/indian-poker-python')
         self.setGeometry(200,200,1000,700)
         self.show()
 
-class MainPageWidget(QWidget):
+class PreviousSettingPage(QWidget):
+
+class MainPage(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Indian Poker')
