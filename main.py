@@ -24,11 +24,15 @@ class MainWindow(QMainWindow, main_window):
         self.setupUi(self)
         self.show()
         
-        self.ai_1 = self.ai_push_button_1.clicked.connect(self.ai_load_1)
+        self.ai_1 = False
+        self.ai_2 = False
+        
+        self.ai_push_button_1.clicked.connect(self.ai_load_1)
+        self.ai_push_button_2.clicked.connect(self.ai_load_2)
+        self.setting_done_button.clicked.connect(self.setting_done)
     
     def ai_load_1(self):
         ai_name = self.ai_input_1.text()
-        print(ai_name)
         self.ai_log_1.clear()
         self.ai_log_1.append(f'{ai_name}.py를 로드합니다.')
         
@@ -36,13 +40,28 @@ class MainWindow(QMainWindow, main_window):
             ai_path = f'aicode.{ai_name}'
             ai = load_module(ai_path)
             self.ai_log_1.append(f'{ai_name}가 정상적으로 로드되었습니다.')
-            return ai
+            self.ai_1 = ai
         except:
             self.ai_log_1.append('해당 이름의 Ai 코드가 없습니다.')
-            return False
+            self.ai_1 = False
 
     def ai_load_2(self):
-        pass
+        ai_name = self.ai_input_2.text()
+        self.ai_log_2.clear()
+        self.ai_log_2.append(f'{ai_name}.py를 로드합니다.')
+        
+        try:
+            ai_path = f'aicode.{ai_name}'
+            ai = load_module(ai_path)
+            self.ai_log_2.append(f'{ai_name}가 정상적으로 로드되었습니다.')
+            self.ai_2 = ai
+        except:
+            self.ai_log_2.append('해당 이름의 Ai 코드가 없습니다.')
+            self.ai_2 = False
+
+    def setting_done(self):
+        self.ai_log_1.append(f'{self.ai_1}')
+        self.ai_log_2.append(f'{self.ai_2}')
 
 if __name__ == '__main__':
     path2 = 'aicode.demo_ai'

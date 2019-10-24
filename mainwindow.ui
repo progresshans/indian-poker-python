@@ -65,7 +65,7 @@ p, li { white-space: pre-wrap; }
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="setting_done_button">
         <property name="text">
          <string>설정완료</string>
         </property>
