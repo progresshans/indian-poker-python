@@ -18,6 +18,12 @@ class GameStart:
         ex = MainWindow()
         sys.exit(app.exec_())
 
+class Gaming:
+    def __init__(self):
+        app = QApplication(sys.argv)
+        ex = GamingWindow()
+        sys.exit(app.exec_())
+
 class MainWindow(QMainWindow, main_window):
     def __init__(self):
         super().__init__()
@@ -88,7 +94,14 @@ class MainWindow(QMainWindow, main_window):
     def setting_done(self):
         self.ai_log_1.append(f'{self.ai_1}')
         self.ai_log_2.append(f'{self.ai_2}')
-        
+
+        if self.ai_1 == False:
+            QMessageBox.about(self, "에러", "첫번째 Ai에 대한 설정이 없습니다. 사람이 플레이하려면 체크박스에 체크를 하세요.")
+        elif self.ai_2 == False:
+            QMessageBox.about(self, "에러", "두번째 Ai에 대한 설정이 없습니다. 사람이 플레이하려면 체크박스에 체크를 하세요.")
+        else:
+            self.close()
+            Gaming()
 
 if __name__ == '__main__':
     path2 = 'aicode.demo_ai'
