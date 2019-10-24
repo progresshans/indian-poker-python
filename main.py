@@ -23,6 +23,26 @@ class MainWindow(QMainWindow, main_window):
         super().__init__()
         self.setupUi(self)
         self.show()
+        
+        self.ai_1 = self.ai_push_button_1.clicked.connect(self.ai_load_1)
+    
+    def ai_load_1(self):
+        ai_name = self.ai_input_1.text()
+        print(ai_name)
+        self.ai_log_1.clear()
+        self.ai_log_1.append(f'{ai_name}.py를 로드합니다.')
+        
+        try:
+            ai_path = f'aicode.{ai_name}'
+            ai = load_module(ai_path)
+            self.ai_log_1.append(f'{ai_name}가 정상적으로 로드되었습니다.')
+            return ai
+        except:
+            self.ai_log_1.append('해당 이름의 Ai 코드가 없습니다.')
+            return False
+
+    def ai_load_2(self):
+        pass
 
 if __name__ == '__main__':
     path2 = 'aicode.demo_ai'
