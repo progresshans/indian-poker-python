@@ -73,7 +73,7 @@ class MainWindow(QMainWindow, main_window):
             self.ai_log_2.append('해당 이름의 Ai 코드가 없습니다.')
             self.ai_2 = False
 
-    def ai_2_is_ai(self):
+    def ai_2_is_ai(self, state):
         if state:
             self.ai_log_2.clear()
             self.ai_log_2.append('사람이 플레이합니다.')
