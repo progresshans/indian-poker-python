@@ -47,8 +47,17 @@ class MainWindow(QMainWindow, main_window):
             self.ai_log_1.append('해당 이름의 Ai 코드가 없습니다.')
             self.ai_1 = False
 
-    def ai_1_is_ai(self):
-
+    def ai_1_is_ai(self, state):
+        if state:
+            self.ai_log_1.clear()
+            self.ai_log_1.append('사람이 플레이합니다.')
+            self.ai_1 = 'Person'
+            self.ai_input_1.setReadOnly(True)
+        else:
+            self.ai_log_1.clear()
+            self.ai_log_1.append('첫번째 Ai가 로드되지 않았습니다.')
+            self.ai_1 = False
+            self.ai_input_1.setReadOnly(False)
 
     def ai_load_2(self):
         ai_name = self.ai_input_2.text()
@@ -65,6 +74,16 @@ class MainWindow(QMainWindow, main_window):
             self.ai_2 = False
 
     def ai_2_is_ai(self):
+        if state:
+            self.ai_log_2.clear()
+            self.ai_log_2.append('사람이 플레이합니다.')
+            self.ai_2 = 'Person'
+            self.ai_input_2.setReadOnly(True)
+        else:
+            self.ai_log_2.clear()
+            self.ai_log_2.append('첫번째 Ai가 로드되지 않았습니다.')
+            self.ai_2 = False
+            self.ai_input_2.setReadOnly(False)
 
     def setting_done(self):
         self.ai_log_1.append(f'{self.ai_1}')
