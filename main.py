@@ -28,7 +28,9 @@ class MainWindow(QMainWindow, main_window):
         self.ai_2 = False
         
         self.ai_push_button_1.clicked.connect(self.ai_load_1)
+        self.is_not_ai_1.stateChanged.connect(self.ai_1_is_ai)
         self.ai_push_button_2.clicked.connect(self.ai_load_2)
+        self.is_not_ai_2.stateChanged.connect(self.ai_2_is_ai)
         self.setting_done_button.clicked.connect(self.setting_done)
     
     def ai_load_1(self):
@@ -45,6 +47,9 @@ class MainWindow(QMainWindow, main_window):
             self.ai_log_1.append('해당 이름의 Ai 코드가 없습니다.')
             self.ai_1 = False
 
+    def ai_1_is_ai(self):
+
+
     def ai_load_2(self):
         ai_name = self.ai_input_2.text()
         self.ai_log_2.clear()
@@ -59,9 +64,12 @@ class MainWindow(QMainWindow, main_window):
             self.ai_log_2.append('해당 이름의 Ai 코드가 없습니다.')
             self.ai_2 = False
 
+    def ai_2_is_ai(self):
+
     def setting_done(self):
         self.ai_log_1.append(f'{self.ai_1}')
         self.ai_log_2.append(f'{self.ai_2}')
+        
 
 if __name__ == '__main__':
     path2 = 'aicode.demo_ai'
