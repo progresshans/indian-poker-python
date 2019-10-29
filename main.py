@@ -7,6 +7,7 @@ from PyQt5.QtGui import *
 from PyQt5 import uic
 
 main_window = uic.loadUiType("mainwindow.ui")[0]
+game_window = uic.loadUiType("gamewindow.ui")[0]
 
 def load_module(module_name):
     mod = importlib.import_module(module_name)
@@ -19,9 +20,9 @@ class GameStart:
         sys.exit(app.exec_())
 
 class Gaming:
-    def __init__(self):
+    def __init__(self, ai_1, ai_2):
         app = QApplication(sys.argv)
-        ex = GamingWindow()
+        ex = GameWindow(ai_1, ai_2)
         sys.exit(app.exec_())
 
 class MainWindow(QMainWindow, main_window):
@@ -101,7 +102,16 @@ class MainWindow(QMainWindow, main_window):
             QMessageBox.about(self, "에러", "두번째 Ai에 대한 설정이 없습니다. 사람이 플레이하려면 체크박스에 체크를 하세요.")
         else:
             self.close()
-            Gaming()
+            Gaming(self.ai_1, self.ai_2)
+
+class GameWindow(QMainWindow, game_window):
+    def __init__(self, ai_1, ai_2):
+        super().__init__()
+        self.setupUi(self)
+        self.show()
+        
+        self.ai_1 = ai_1
+        self.ai_2 = ai_2
 
 if __name__ == '__main__':
     path2 = 'aicode.demo_ai'
