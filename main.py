@@ -60,11 +60,13 @@ class MainWindow(QMainWindow, main_window):
             self.ai_log_1.append('사람이 플레이합니다.')
             self.ai_1 = 'Person'
             self.ai_input_1.setReadOnly(True)
+            self.ai_push_button_1.setEnabled(False)
         else:
             self.ai_log_1.clear()
             self.ai_log_1.append('첫번째 Ai가 로드되지 않았습니다.')
             self.ai_1 = False
             self.ai_input_1.setReadOnly(False)
+            self.ai_push_button_1.setEnabled(True)
 
     def ai_load_2(self):
         ai_name = self.ai_input_2.text()
@@ -86,11 +88,13 @@ class MainWindow(QMainWindow, main_window):
             self.ai_log_2.append('사람이 플레이합니다.')
             self.ai_2 = 'Person'
             self.ai_input_2.setReadOnly(True)
+            self.ai_push_button_2.setEnabled(False)
         else:
             self.ai_log_2.clear()
             self.ai_log_2.append('첫번째 Ai가 로드되지 않았습니다.')
             self.ai_2 = False
             self.ai_input_2.setReadOnly(False)
+            self.ai_push_button_2.setEnabled(True)
 
     def setting_done(self):
         self.ai_log_1.append(f'{self.ai_1}')
