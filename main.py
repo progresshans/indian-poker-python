@@ -6,119 +6,107 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5 import uic
 
-main_window = uic.loadUiType("mainwindow.ui")[0]
-game_window = uic.loadUiType("gamewindow.ui")[0]
+main_window , _ = uic.loadUiType("mainwindow.ui")
+game_window, _ = uic.loadUiType("gamewindow.ui")
 
 def load_module(module_name):
     mod = importlib.import_module(module_name)
     return mod
 
-class GameStart:
+class MainWindow(QMainWindow):
     def __init__(self):
-        app = QApplication(sys.argv)
-        ex = MainWindow()
-        sys.exit(app.exec_())
+        super(MainWindow, self).__init__()
+        self.startMainWindow()
 
-class Gaming:
-    def __init__(self, ai_1, ai_2):
-        app = QApplication(sys.argv)
-        ex = GameWindow(ai_1, ai_2)
-        sys.exit(app.exec_())
-
-class MainWindow(QMainWindow, main_window):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-        self.show()
-        
+    def startMainWindow(self):
+        self.ui = main_window()
+        self.ui.setupUi(self)
+    
         self.ai_1 = False
         self.ai_2 = False
         
-        self.ai_push_button_1.clicked.connect(self.ai_load_1)
-        self.is_not_ai_1.stateChanged.connect(self.ai_1_is_ai)
-        self.ai_push_button_2.clicked.connect(self.ai_load_2)
-        self.is_not_ai_2.stateChanged.connect(self.ai_2_is_ai)
-        self.setting_done_button.clicked.connect(self.setting_done)
-    
+        self.ui.ai_push_button_1.clicked.connect(self.ai_load_1)
+        self.ui.is_not_ai_1.stateChanged.connect(self.ai_1_is_ai)
+        self.ui.ai_push_button_2.clicked.connect(self.ai_load_2)
+        self.ui.is_not_ai_2.stateChanged.connect(self.ai_2_is_ai)
+        self.ui.setting_done_button.clicked.connect(self.setting_done)
+
+    def startGameWindow(self):
+        self.ui = game_window()
+        self.ui.setupUi(self)
+
     def ai_load_1(self):
-        ai_name = self.ai_input_1.text()
-        self.ai_log_1.clear()
-        self.ai_log_1.append(f'{ai_name}.py를 로드합니다.')
+        ai_name = self.ui.ai_input_1.text()
+        self.ui.ai_log_1.clear()
+        self.ui.ai_log_1.append(f'{ai_name}.py를 로드합니다.')
         
         try:
             ai_path = f'aicode.{ai_name}'
             ai = load_module(ai_path)
-            self.ai_log_1.append(f'{ai_name}가 정상적으로 로드되었습니다.')
+            self.ui.ai_log_1.append(f'{ai_name}가 정상적으로 로드되었습니다.')
             self.ai_1 = ai
         except:
-            self.ai_log_1.append('해당 이름의 Ai 코드가 없습니다.')
+            self.ui.ai_log_1.append('해당 이름의 Ai 코드가 없습니다.')
             self.ai_1 = False
 
     def ai_1_is_ai(self, state):
         if state:
-            self.ai_log_1.clear()
-            self.ai_log_1.append('사람이 플레이합니다.')
+            self.ui.ai_log_1.clear()
+            self.ui.ai_log_1.append('사람이 플레이합니다.')
             self.ai_1 = 'Person'
-            self.ai_input_1.setReadOnly(True)
-            self.ai_push_button_1.setEnabled(False)
+            self.ui.ai_input_1.setReadOnly(True)
+            self.ui.ai_push_button_1.setEnabled(False)
         else:
-            self.ai_log_1.clear()
-            self.ai_log_1.append('첫번째 Ai가 로드되지 않았습니다.')
+            self.ui.ai_log_1.clear()
+            self.ui.ai_log_1.append('첫번째 Ai가 로드되지 않았습니다.')
             self.ai_1 = False
-            self.ai_input_1.setReadOnly(False)
-            self.ai_push_button_1.setEnabled(True)
+            self.ui.ai_input_1.setReadOnly(False)
+            self.ui.ai_push_button_1.setEnabled(True)
 
     def ai_load_2(self):
-        ai_name = self.ai_input_2.text()
-        self.ai_log_2.clear()
-        self.ai_log_2.append(f'{ai_name}.py를 로드합니다.')
+        ai_name = self.ui.ai_input_2.text()
+        self.ui.ai_log_2.clear()
+        self.ui.ai_log_2.append(f'{ai_name}.py를 로드합니다.')
         
         try:
             ai_path = f'aicode.{ai_name}'
             ai = load_module(ai_path)
-            self.ai_log_2.append(f'{ai_name}가 정상적으로 로드되었습니다.')
+            self.ui.ai_log_2.append(f'{ai_name}가 정상적으로 로드되었습니다.')
             self.ai_2 = ai
         except:
-            self.ai_log_2.append('해당 이름의 Ai 코드가 없습니다.')
+            self.ui.ai_log_2.append('해당 이름의 Ai 코드가 없습니다.')
             self.ai_2 = False
 
     def ai_2_is_ai(self, state):
         if state:
-            self.ai_log_2.clear()
-            self.ai_log_2.append('사람이 플레이합니다.')
+            self.ui.ai_log_2.clear()
+            self.ui.ai_log_2.append('사람이 플레이합니다.')
             self.ai_2 = 'Person'
-            self.ai_input_2.setReadOnly(True)
-            self.ai_push_button_2.setEnabled(False)
+            self.ui.ai_input_2.setReadOnly(True)
+            self.ui.ai_push_button_2.setEnabled(False)
         else:
-            self.ai_log_2.clear()
-            self.ai_log_2.append('첫번째 Ai가 로드되지 않았습니다.')
+            self.ui.ai_log_2.clear()
+            self.ui.ai_log_2.append('첫번째 Ai가 로드되지 않았습니다.')
             self.ai_2 = False
-            self.ai_input_2.setReadOnly(False)
-            self.ai_push_button_2.setEnabled(True)
+            self.ui.ai_input_2.setReadOnly(False)
+            self.ui.ai_push_button_2.setEnabled(True)
 
     def setting_done(self):
-        self.ai_log_1.append(f'{self.ai_1}')
-        self.ai_log_2.append(f'{self.ai_2}')
+        self.ui.ai_log_1.append(f'{self.ai_1}')
+        self.ui.ai_log_2.append(f'{self.ai_2}')
 
         if self.ai_1 == False:
             QMessageBox.about(self, "에러", "첫번째 Ai에 대한 설정이 없습니다. 사람이 플레이하려면 체크박스에 체크를 하세요.")
         elif self.ai_2 == False:
             QMessageBox.about(self, "에러", "두번째 Ai에 대한 설정이 없습니다. 사람이 플레이하려면 체크박스에 체크를 하세요.")
         else:
-            self.close()
-            Gaming(self.ai_1, self.ai_2)
-
-class GameWindow(QMainWindow, game_window):
-    def __init__(self, ai_1, ai_2):
-        super().__init__()
-        self.setupUi(self)
-        self.show()
+            self.startGameWindow()
         
-        self.ai_1 = ai_1
-        self.ai_2 = ai_2
-
 if __name__ == '__main__':
     path2 = 'aicode.demo_ai'
     a = load_module(path2)
     print(a.test())
-    GameStart()
+    app = QApplication(sys.argv)
+    ex = MainWindow()
+    ex.show()
+    sys.exit(app.exec_())
